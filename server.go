@@ -49,7 +49,7 @@ func getUser(c echo.Context) error {
 			{Title: "Task 3", Done: true},
 		},
 	}
-	err := c.Render(http.StatusOK, "index.html", data)
+	err := c.Render(http.StatusOK, "test_index.html", data) // To reference the template file inside the folder, it must have an unique name
 
 	if err != nil {
 		log.Println(err)
@@ -80,6 +80,7 @@ func main() {
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
 	e.Renderer = t
+	t.templates.ParseGlob("views/test/*.html") // Add the new folders when are created
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
