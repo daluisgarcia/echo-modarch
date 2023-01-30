@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/daluisgarcia/golang-echo-test/app"
-	"github.com/daluisgarcia/golang-echo-test/authentication"
-	"github.com/daluisgarcia/golang-echo-test/landing_page"
-	"github.com/daluisgarcia/golang-echo-test/todo_module"
+	"github.com/daluisgarcia/echo-framework-modular-arquitecture/app"
+	"github.com/daluisgarcia/echo-framework-modular-arquitecture/authentication"
+	"github.com/daluisgarcia/echo-framework-modular-arquitecture/landing_page"
+	"github.com/daluisgarcia/echo-framework-modular-arquitecture/todo_module"
 )
 
 var modulesToRegister = []app.IAppModule{

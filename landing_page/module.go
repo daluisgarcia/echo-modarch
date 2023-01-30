@@ -1,6 +1,6 @@
 package landing_page
 
-import "github.com/daluisgarcia/golang-echo-test/app"
+import "github.com/daluisgarcia/echo-framework-modular-arquitecture/app"
 
 type LandingModule struct{}
 

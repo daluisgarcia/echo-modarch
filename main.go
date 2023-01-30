@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/daluisgarcia/golang-echo-test/app"
+	"github.com/daluisgarcia/echo-framework-modular-arquitecture/app"
 )
 
 func main() {

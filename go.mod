@@ -1,4 +1,4 @@
-module github.com/daluisgarcia/golang-echo-test
+module github.com/daluisgarcia/echo-framework-modular-arquitecture
 
 go 1.19
 
