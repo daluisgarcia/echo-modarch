@@ -1,6 +1,6 @@
 package authentication
 
-import "github.com/daluisgarcia/echo-framework-modular-arquitecture/app"
+import "echo-modarch/app"
 
 type AuthenticationModule struct{}
 

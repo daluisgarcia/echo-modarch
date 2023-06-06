@@ -6,6 +6,7 @@ import (
 
 var echoApp *echo.Echo // App instance
 
+// Initilize the server, setting the renderer and static files folder
 func InitServer() error {
 	// Loading environment variables into the config struct
 	if err := SetConfig(); err != nil {
@@ -20,7 +21,7 @@ func InitServer() error {
 	return nil
 }
 
+// Run the server
 func RunServer() {
-	// Start server
 	echoApp.Logger.Fatal(echoApp.Start(":1323"))
 }

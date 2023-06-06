@@ -1,4 +1,4 @@
-module github.com/daluisgarcia/echo-framework-modular-arquitecture
+module echo-modarch
 
 go 1.19
 

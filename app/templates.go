@@ -11,6 +11,7 @@ type TemplateRenderer struct {
 	templates *template.Template
 }
 
+// Renders a template
 func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	// Add global methods if data is a map
 	if viewContext, isMap := data.(map[string]interface{}); isMap {
@@ -20,8 +21,8 @@ func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c
 	return tr.templates.ExecuteTemplate(w, name, data)
 }
 
+// Add a template to the renderer
 func (tr *TemplateRenderer) AddTemplate(path string) {
-	// Add the new templates to the existing ones
 	tr.templates.ParseGlob(path)
 }
 

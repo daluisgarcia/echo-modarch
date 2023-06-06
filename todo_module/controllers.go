@@ -9,7 +9,7 @@ import (
 
 func getExampleToDoPage(c echo.Context) error {
 	id := c.Param("id") // User ID from path `users/:id`
-	data := TodoPageData{
+	data := TodoPageDTO{
 		Id:        id,
 		PageTitle: "My TODO list",
 		Todos: []Todo{
