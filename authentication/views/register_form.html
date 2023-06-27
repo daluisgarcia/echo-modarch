@@ -1,0 +1,15 @@
+{{define "title"}}Register{{end}}
+{{define "main"}}
+    <h1>REGISTER</h1>
+    <form method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <div>
+            {{if .error}}
+                <p class="error">{{.error}}</p>
+            {{end}}
+        </div>
+        <input type="submit" value="Register">
+    </form>
+{{end}}

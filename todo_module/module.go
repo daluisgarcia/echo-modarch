@@ -9,5 +9,5 @@ func (tm *ToDoModule) RegisterRoutes() {
 }
 
 func (tm *ToDoModule) RegisterTemplates() {
-	app.TempRender.AddTemplate("todo_module/views/*.html")
+	app.TempRender.AddTemplate("todo_module/views/todo_index.html")
 }

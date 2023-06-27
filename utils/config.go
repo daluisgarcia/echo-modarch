@@ -1,11 +1,13 @@
-package app
+package utils
 
 import "github.com/kelseyhightower/envconfig"
 
 type Config struct {
 	PostgresDB       string `envconfig:"POSTGRES_DB"` // Allows to be read by .env
+	PostgresHost     string `envconfig:"POSTGRES_HOST"`
 	PostgresUser     string `envconfig:"POSTGRES_USER"`
 	PostgresPassword string `envconfig:"POSTGRES_PASSWORD"`
+	SecretKey        string `envconfig:"SECRET_KEY"`
 }
 
 // Global configuration
