@@ -1,6 +1,7 @@
 package app
 
 import (
+	"echo-modarch/database"
 	"echo-modarch/utils"
 
 	"github.com/gorilla/sessions"
@@ -23,13 +24,13 @@ func InitServer() error {
 	echoApp.Renderer = TempRender
 	echoApp.Static("/static", "static")
 
-	// databaseConnection, err := database.NewPostgresDatabase()
+	databaseConnection, err := database.NewPostgresDatabase()
 
-	// if err != nil {
-	// 	return err
-	// }
+	if err != nil {
+		return err
+	}
 
-	// database.SetDatabaseConnection(databaseConnection)
+	database.SetDatabaseConnection(databaseConnection)
 
 	return nil
 }

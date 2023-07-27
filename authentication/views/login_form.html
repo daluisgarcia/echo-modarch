@@ -1,7 +1,7 @@
 {{define "title"}}Login{{end}}
 {{define "main"}}
     <h1>LOGIN</h1>
-    <form action='{{ reverse "loginUser" }}' method="post">
+    <form action='{{ reverse "loginUserPost" }}' method="post">
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <div>

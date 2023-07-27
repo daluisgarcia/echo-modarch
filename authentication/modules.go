@@ -9,11 +9,11 @@ type AuthenticationModule struct{}
 
 func (am *AuthenticationModule) RegisterRoutes() {
 	gob.Register(&UserCookieData{})
-	app.AddApplicationRoute("/register", "GET", registerForm, "registerUserForm")
-	app.AddApplicationRoute("/register", "POST", registerUser, "saveUser")
-	app.AddApplicationRoute("/login", "GET", loginForm, "loginUserForm")
-	app.AddApplicationRoute("/login", "POST", loginUser, "loginUser")
-	app.AddApplicationRoute("/logout", "GET", logoutUser, "logoutUser")
+	app.AddApplicationRoute("/register", "GET", registerForm, "registerUserForm", UserIsNotLoggedIn)
+	app.AddApplicationRoute("/register", "POST", registerUser, "saveUser", UserIsNotLoggedIn)
+	app.AddApplicationRoute("/login", "GET", loginForm, "loginUserGet", UserIsNotLoggedIn)
+	app.AddApplicationRoute("/login", "POST", loginUser, "loginUserPost", UserIsNotLoggedIn)
+	app.AddApplicationRoute("/logout", "GET", logoutUser, "logoutUser", UserIsLoggedIn)
 }
 
 func (am *AuthenticationModule) RegisterTemplates() {
