@@ -1,21 +1,31 @@
 package utils
 
-import "github.com/kelseyhightower/envconfig"
+import (
+	"github.com/caarlos0/env"
+	"github.com/joho/godotenv"
+)
 
 type Config struct {
-	PostgresDB       string `envconfig:"POSTGRES_DB"` // Allows to be read by .env
-	PostgresHost     string `envconfig:"POSTGRES_HOST"`
-	PostgresUser     string `envconfig:"POSTGRES_USER"`
-	PostgresPassword string `envconfig:"POSTGRES_PASSWORD"`
-	SecretKey        string `envconfig:"SECRET_KEY"`
+	PostgresDB       string `env:"POSTGRES_DB,required"` // Allows to be read by .env
+	PostgresHost     string `env:"POSTGRES_HOST,required"`
+	PostgresUser     string `env:"POSTGRES_USER,required"`
+	PostgresPassword string `env:"POSTGRES_PASSWORD,required"`
+	SecretKey        string `env:"SECRET_KEY,required"`
 }
 
 // Global configuration
 var appConfig Config
 
 func SetConfig() error {
+	// Loading environment variables from .env file
+	err := godotenv.Load()
+
+	if err != nil {
+		return err
+	}
+
 	// Loading environment variables into the config struct
-	err := envconfig.Process("", &appConfig)
+	err = env.Parse(&appConfig)
 
 	if err != nil {
 		return err
