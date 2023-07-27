@@ -1,3 +1,5 @@
+// IMPORTANT: THIS FILE SHOULD NOT BE EDITED
+
 package main
 
 import (
@@ -9,14 +11,15 @@ import (
 	"echo-modarch/todo_module"
 )
 
-// Slice of the modules to be registered
-// This is the place where you register your modules
+// Slice that contains the modules to be registered.
+// Modules to work with the server must be added here.
 var modulesToRegister = []app.IAppModule{
+	&authentication.AuthenticationModule{},
 	&landing_page.LandingModule{},
 	&todo_module.ToDoModule{},
-	&authentication.AuthenticationModule{},
 }
 
+// Project main function
 func main() {
 	// Initializing the server
 	err := app.InitServer()

@@ -1,3 +1,5 @@
+// IMPORTANT: THIS FILE SHOULD NOT BE EDITED
+
 package app
 
 // Interface to define a module possible actions

@@ -1,9 +1,12 @@
+// IMPORTANT: THIS FILE SHOULD NOT BE EDITED
+
 package app
 
 import (
 	"fmt"
 	"html/template"
 	"io"
+	"log"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -17,29 +20,30 @@ type TemplateRenderer struct {
 func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 
 	if temp, ok := tr.templates[name]; ok {
-		return temp.ExecuteTemplate(w, "base", data) // Renders the base template with the blocks defined in the template got by name
+		// Renders the base template with the blocks defined in the template gotten by name
+		return temp.ExecuteTemplate(w, "base", data)
 	}
 
 	err := fmt.Errorf("ERROR RENDERING TEMPLATE: Template %v not found", name)
-	fmt.Println(err)
+	log.Printf("%v\n", err)
 
 	return err
 }
 
-// Base templates
+// Base templates used in templates rendering and extending
 var baseTemplates = []string{
 	"views/base.html",
 	"views/navbar.html",
 }
 
-// Add a template to the renderer
+// Adds a template to the renderer
 func (tr *TemplateRenderer) AddTemplate(path string) {
 	pathSplitted := strings.Split(path, "/")
 	templateName := pathSplitted[len(pathSplitted)-1]
 
 	temp := template.New("")
 
-	// Adding functions to templates
+	// Adding custom functions to templates
 	temp.Funcs(
 		template.FuncMap{
 			"reverse": echoApp.Reverse,
@@ -47,7 +51,8 @@ func (tr *TemplateRenderer) AddTemplate(path string) {
 	)
 
 	templatesBatch := append(baseTemplates, path)
-	temp, err := temp.ParseFiles(templatesBatch...) // Parsing the base templates and the template got by path
+	// Parsing the base templates and the template got by path
+	temp, err := temp.ParseFiles(templatesBatch...)
 
 	if err != nil {
 		panic(fmt.Errorf("ERROR ADDING TEMPLATE PATH \"%v\": %v\n", path, err))
