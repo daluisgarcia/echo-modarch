@@ -10,7 +10,7 @@ This project is aimed at developers with a basic knowledge of Golang web servers
 
 This project  is structured in the following way:
 
-- `app/` This folder contains the server and database driver instantiation, also contains the code to lift the modules and subcribe the routes and controlles to the main server, contains the code that handles the session cookies and some tools for config and hashing features. The code inside this folder must use only code from third party packages or code from the same `app/` folder to avoid circular dependencies. **THE CODE INSIDE THIS FOLDER CAN BE EDITED BUT IT IS NOT RECOMMENDED. PLEASE GIVE ATTENTION TO FIRST LINE COMMENTS OF THE FILES**
+- `app/` This folder contains the server and database driver instantiation, also contains the code to lift the modules and subcribe the routes and controlles to the main server, contains the code that handles the session cookies and some tools for config and hashing features. The code inside this folder must use only code from third party packages or code from the same `app/` folder to avoid circular dependencies. **SOME OF THE CODE INSIDE THIS FOLDER SHOULD NOT BE MODIFIED. PLEASE GIVE ATTENTION TO FIRST LINE COMMENTS OF THE FILES TO AVOID BREAKING THE PROJECT**
 
 - `authentication/` This folder contains the code to manage the creation and authentication of the users. The session is handled by a session cookie and the user data is added to the context by the UserIsLoggedIn middleware. Inside the `views/` folder you can see how template ingeritance and template custom functions can be used. **THE CODE INSIDE THIS FOLDER IS A WORKING EXAMPLE OF HOW AUTHENTICATION CAN BE IMPLEMENTED IN ECHO**, the code may be modified if it doesn't fit your project requirements.
 
