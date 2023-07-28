@@ -1,6 +1,15 @@
 {{ define "navbar" }}
     <header>
         <h1><a href='/'>Golang test project</a></h1>
+        <div>
+            <a href='{{ reverse "tasksList" }}'>Task list</a>
+            {{ if .user.IsAuthenticated }}
+                <a href='{{ reverse "logoutUser" }}'>Logout</a>
+            {{ else }}
+                <a href='{{ reverse "loginUserGet" }}'>Login</a>
+                <a href='{{ reverse "registerUserForm" }}'>Register</a>
+            {{ end }}
+        </div>
         <hr>
     </header>
 {{end}}
