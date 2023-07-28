@@ -15,7 +15,7 @@ var echoApp *echo.Echo // App instance
 // Initilize the server, setting the renderer and static files folder
 func InitServer() error {
 	// Loading environment variables into the config struct
-	if err := SetConfig(); err != nil {
+	if err := setConfig(); err != nil {
 		return err
 	}
 

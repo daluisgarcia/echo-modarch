@@ -18,7 +18,8 @@ type Config struct {
 // Global configuration
 var appConfig Config
 
-func SetConfig() error {
+// Loads the configuration from environment variables and sets it to the global config variable
+func setConfig() error {
 	// Loading environment variables from .env file
 	err := godotenv.Load()
 
@@ -36,7 +37,7 @@ func SetConfig() error {
 	return nil
 }
 
+// Returns the global configuration
 func GetConfig() Config {
-	// Returns the global configuration
 	return appConfig
 }

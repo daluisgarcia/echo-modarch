@@ -17,7 +17,7 @@ type TemplateRenderer struct {
 	templates map[string]*template.Template
 }
 
-// Renders a template
+// Renders a template and adds the user authenticated data to the template context
 func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 
 	if temp, ok := tr.templates[name]; ok {
@@ -33,8 +33,9 @@ func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c
 
 		if viewContext, isMap := v.(map[string]interface{}); isMap {
 			var err error
-			// If the context has a user, it will be passed to the template
+			// Passing the user authenticated to the template
 			if viewContext["user"], err = GetUserFromCookie(c); err != nil {
+				// If the user is not authenticated, the user data is set to default values
 				viewContext["user"] = &UserCookieData{}
 			}
 
