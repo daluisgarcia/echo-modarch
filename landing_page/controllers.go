@@ -7,5 +7,5 @@ import (
 )
 
 func indexView(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World! Try to requestthe route: GET /todos/1")
+	return c.String(http.StatusOK, "Hello, World! Try to request the route: GET /todos")
 }
