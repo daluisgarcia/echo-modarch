@@ -47,6 +47,7 @@ func (tr *TemplateRenderer) AddTemplate(path string) {
 	temp.Funcs(
 		template.FuncMap{
 			"reverse": echoApp.Reverse,
+			"user":    GetUserFromCookie,
 		},
 	)
 

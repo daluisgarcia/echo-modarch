@@ -1,6 +1,9 @@
-package authentication
+// IMPORTANT: THIS FILE CAN BE EDITED TO FIT YOUR NEEDS
+
+package app
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/gorilla/sessions"
@@ -8,7 +11,13 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func setSessionCookie(c echo.Context, userCookieData *UserCookieData) error {
+type UserCookieData struct {
+	Id    string `json:"id"`
+	Email string `json:"email"`
+}
+
+// SetSessionCookie sets a session cookie with the user data
+func SetSessionCookie(c echo.Context, userCookieData *UserCookieData) error {
 	loginCookie, err := session.Get("login", c)
 
 	if err != nil {
@@ -33,7 +42,8 @@ func setSessionCookie(c echo.Context, userCookieData *UserCookieData) error {
 	return nil
 }
 
-func getSessionCookie(c echo.Context) (*UserCookieData, error) {
+// GetUserFromCookie gets the user data from the session cookie
+func GetUserFromCookie(c echo.Context) (*UserCookieData, error) {
 	loginCookie, err := session.Get("login", c)
 
 	if err != nil {
@@ -52,7 +62,8 @@ func getSessionCookie(c echo.Context) (*UserCookieData, error) {
 	return userLogged, nil
 }
 
-func removeSessionCookie(c echo.Context) error {
+// RemoveSessionCookie removes the session cookie
+func RemoveSessionCookie(c echo.Context) error {
 	loginCookie, err := session.Get("login", c)
 
 	if err != nil {
@@ -68,4 +79,22 @@ func removeSessionCookie(c echo.Context) error {
 	loginCookie.Values["user"] = nil
 
 	return loginCookie.Save(c.Request(), c.Response())
+}
+
+// SetUserInContext sets the user data in the context
+func SetUserInContext(c echo.Context, userCookie *UserCookieData) echo.Context {
+	c.Set("user", userCookie)
+	return c
+}
+
+// GetUserFromContext gets the user data from the context
+func GetUserFromContext(c echo.Context) (*UserCookieData, error) {
+	userCookie, ok := c.Get("user").(*UserCookieData)
+
+	if !ok {
+		log.Printf("ERROR GETTING USER FROM CONTEXT\n")
+		return nil, fmt.Errorf("ERROR GETTING USER FROM CONTEXT")
+	}
+
+	return userCookie, nil
 }

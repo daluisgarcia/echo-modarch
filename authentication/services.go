@@ -2,7 +2,7 @@ package authentication
 
 import (
 	"context"
-	"echo-modarch/utils"
+	"echo-modarch/app"
 	"fmt"
 
 	"github.com/google/uuid"
@@ -25,7 +25,7 @@ func (this *UserService) LoginUser(ctx context.Context, user *LoginUserRequest) 
 		return nil, fmt.Errorf("Invalid credentials")
 	}
 
-	err = utils.CompareHashedString(userInDB.Password, user.Password)
+	err = app.CompareHashedString(userInDB.Password, user.Password)
 
 	if err != nil {
 		return nil, fmt.Errorf("Invalid credentials")
@@ -36,7 +36,7 @@ func (this *UserService) LoginUser(ctx context.Context, user *LoginUserRequest) 
 
 func (this *UserService) RegisterUser(ctx context.Context, user *RegisterUserRequest) (*User, error) {
 
-	hashedPassword, err := utils.HashString(user.Password)
+	hashedPassword, err := app.HashString(user.Password)
 
 	if err != nil {
 		return nil, err

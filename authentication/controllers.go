@@ -1,6 +1,7 @@
 package authentication
 
 import (
+	"echo-modarch/app"
 	"log"
 	"net/http"
 
@@ -63,12 +64,12 @@ func loginUser(c echo.Context) error {
 		return err
 	}
 
-	userCookie := &UserCookieData{
+	userCookie := &app.UserCookieData{
 		Id:    userFromDb.Id,
 		Email: userFromDb.Email,
 	}
 
-	if err = setSessionCookie(c, userCookie); err != nil {
+	if err = app.SetSessionCookie(c, userCookie); err != nil {
 		return err
 	}
 
@@ -78,7 +79,7 @@ func loginUser(c echo.Context) error {
 
 func logoutUser(c echo.Context) error {
 
-	err := removeSessionCookie(c)
+	err := app.RemoveSessionCookie(c)
 
 	if err != nil {
 		return err

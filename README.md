@@ -10,7 +10,7 @@ This project is aimed at developers with a basic knowledge of Golang web servers
 
 This project  is structured in the following way:
 
-- `app/` This folder contains the server and database driver instantiation. Also contains the code to lift the modules and subcribe the routes and controlles to the main server. **THE FILES INSIDE THIS FOLDER SHOULD NOT BE MODIFIED**.
+- `app/` This folder contains the server and database driver instantiation, also contains the code to lift the modules and subcribe the routes and controlles to the main server, contains the code that handles the session cookies and some tools for config and hashing features. The code inside this folder must use only code from third party packages or code from the same `app/` folder to avoid circular dependencies. **THE CODE INSIDE THIS FOLDER CAN BE EDITED BUT IT IS NOT RECOMMENDED. PLEASE GIVE ATTENTION TO FIRST LINE COMMENTS OF THE FILES**
 
 - `authentication/` This folder contains the code to manage the creation and authentication of the users. The session is handled by a session cookie and the user data is added to the context by the UserIsLoggedIn middleware. Inside the `views/` folder you can see how template ingeritance and template custom functions can be used. **THE CODE INSIDE THIS FOLDER IS A WORKING EXAMPLE OF HOW AUTHENTICATION CAN BE IMPLEMENTED IN ECHO**, the code may be modified if it doesn't fit your project requirements.
 
@@ -19,8 +19,6 @@ This project  is structured in the following way:
 - `landing_page/` This folder contains the minimum code a module needs to work correctly. This module only renders a string and the `modules.go` file contains the code to subscribe the routes and controllers to the main server. **THIS CODE CAN BE EDITED TO FIT YOUR PROJECT REQUIREMENTS.**
 
 - `todo_modules/` This folder contains a module to manage a todo list. This module is a working example of how a module can be created and plugged to the main server. Inside the `views/` folder you can see how template ingeritance can be used. **THIS CODE IS JUST AND EXAMPLE, IT CAN BE EDITED OR DELETED**
-
-- `utils/` This folder contains some utilities as the project configuration management logic and struct (used in database instantiation) and hasher methods (used in password hashing). **THIS CODE CAN BE EDITED TO FIT YOUR PROJECT REQUIREMENTS.**
 
 - `views/` This folder contains the base html templates used in the project. THe templates here are used in template inheritance by the server renderer. **If you need to add/remove some base template to the project, please view the `app/templates.go` file first.**
 

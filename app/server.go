@@ -4,7 +4,6 @@ package app
 
 import (
 	"echo-modarch/database"
-	"echo-modarch/utils"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -16,17 +15,24 @@ var echoApp *echo.Echo // App instance
 // Initilize the server, setting the renderer and static files folder
 func InitServer() error {
 	// Loading environment variables into the config struct
-	if err := utils.SetConfig(); err != nil {
+	if err := SetConfig(); err != nil {
 		return err
 	}
 
+	config := GetConfig()
+
 	echoApp = echo.New()
-	echoApp.Use(session.Middleware(sessions.NewCookieStore([]byte(utils.GetConfig().SecretKey))))
+	echoApp.Use(session.Middleware(sessions.NewCookieStore([]byte(GetConfig().SecretKey))))
 
 	echoApp.Renderer = TempRender
 	echoApp.Static("/static", "static")
 
-	databaseConnection, err := database.NewPostgresDatabase()
+	databaseConnection, err := database.NewPostgresDatabase(
+		config.PostgresUser,
+		config.PostgresPassword,
+		config.PostgresHost,
+		config.PostgresDB,
+	)
 
 	if err != nil {
 		return err

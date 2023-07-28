@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"echo-modarch/utils"
 	"fmt"
 	"io/ioutil"
 
@@ -13,15 +12,14 @@ type PostgresDatabase struct {
 	db *sql.DB
 }
 
-func NewPostgresDatabase() (*PostgresDatabase, error) {
-	config := utils.GetConfig()
+func NewPostgresDatabase(postgresUser, postgresPassword, postgresHost, postgresDB string) (*PostgresDatabase, error) {
 
 	urlDB := fmt.Sprintf(
 		"postgres://%s:%s@%s/%s",
-		config.PostgresUser,
-		config.PostgresPassword,
-		config.PostgresHost,
-		config.PostgresDB,
+		postgresUser,
+		postgresPassword,
+		postgresHost,
+		postgresDB,
 	)
 
 	db, err := sql.Open("postgres", urlDB)

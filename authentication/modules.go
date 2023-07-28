@@ -8,7 +8,7 @@ import (
 type AuthenticationModule struct{}
 
 func (am *AuthenticationModule) RegisterRoutes() {
-	gob.Register(&UserCookieData{})
+	gob.Register(&app.UserCookieData{})
 	app.AddApplicationRoute("/register", "GET", registerForm, "registerUserForm", UserIsNotLoggedIn)
 	app.AddApplicationRoute("/register", "POST", registerUser, "saveUser", UserIsNotLoggedIn)
 	app.AddApplicationRoute("/login", "GET", loginForm, "loginUserGet", UserIsNotLoggedIn)

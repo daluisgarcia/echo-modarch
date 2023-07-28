@@ -12,11 +12,7 @@ type UserRepository struct {
 }
 
 func NewUserRepository() *UserRepository {
-	conn, err := database.NewPostgresDatabase()
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	conn := database.GetDatabaseConnection()
 
 	return &UserRepository{
 		conn: conn,

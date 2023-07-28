@@ -1,6 +1,7 @@
 package authentication
 
 import (
+	"echo-modarch/app"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -8,7 +9,7 @@ import (
 
 func UserIsNotLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		userCookie, err := getSessionCookie(c)
+		userCookie, err := app.GetUserFromCookie(c)
 
 		if err != nil {
 			return err
@@ -25,7 +26,7 @@ func UserIsNotLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {
 
 func UserIsLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		userCookie, err := getSessionCookie(c)
+		userCookie, err := app.GetUserFromCookie(c)
 
 		if err != nil {
 			return err
@@ -33,7 +34,10 @@ func UserIsLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {
 
 		if userCookie.Id != "" {
 			// User is logged in
-			c.Set("user", userCookie)
+
+			// TODO - Check if user exists in database
+
+			c = app.SetUserInContext(c, userCookie)
 			return next(c)
 		}
 

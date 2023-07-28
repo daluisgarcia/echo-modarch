@@ -1,4 +1,6 @@
-package utils
+// IMPORTANT: THIS FILE CAN BE EDITED TO FIT YOUR NEEDS
+
+package app
 
 import "golang.org/x/crypto/bcrypt"
 
