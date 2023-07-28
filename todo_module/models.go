@@ -1,6 +1,8 @@
 package todo_module
 
-type Todo struct {
-	Title string
-	Done  bool
+type Task struct {
+	Id          string `query:"id"`
+	Title       string `query:"title"`
+	Description string `query:"description"`
+	Done        bool   `query:"done"`
 }

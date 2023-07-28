@@ -7,22 +7,70 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func getExampleToDoPage(c echo.Context) error {
-	id := c.Param("id") // User ID from path `users/:id`
-	data := TodoPageDTO{
-		Id:        id,
-		PageTitle: "My TODO list",
-		Todos: []Todo{
-			{Title: "Task 1", Done: false},
-			{Title: "Task 2", Done: true},
-			{Title: "Task 3", Done: true},
-		},
+func newTaskForm(c echo.Context) error {
+	return c.Render(http.StatusOK, "create_task.html", make(map[string]interface{}))
+}
+
+func createNewTask(c echo.Context) error {
+	taskData := new(CreateTaskData)
+
+	if err := c.Bind(taskData); err != nil {
+		log.Println(err)
+		return err
 	}
-	err := c.Render(http.StatusOK, "todo_index.html", data) // To reference the template file inside the folder, it must have an unique name
+
+	service := NewToDoService()
+	err := service.CreateNewTask(c, taskData)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	return c.Redirect(http.StatusFound, "/todos")
+}
+
+func getTaskList(c echo.Context) error {
+	service := NewToDoService()
+	taskList, err := service.GetToDosList(c)
+
+	var errorString string
+	if err != nil {
+		errorString = err.Error()
+		log.Println(err)
+	}
+
+	// Structured way to send context to the template
+	data := TodoPageDTO{
+		PageTitle: "My TODO list",
+		Tasks:     taskList,
+		Error:     errorString,
+	}
+	// To reference the template file inside the folder, it must have an unique name into the whole project
+	err = c.Render(http.StatusOK, "task_list.html", data)
 
 	if err != nil {
 		log.Println(err)
 	}
 
 	return err
+}
+
+func taskDetails(c echo.Context) error {
+	id := c.Param("id")
+
+	service := NewToDoService()
+	task, err := service.GetTaskById(c, id)
+
+	var errorString string
+	if err != nil {
+		errorString = err.Error()
+		log.Println(err)
+	}
+
+	data := map[string]interface{}{
+		"task":  task,
+		"error": errorString,
+	}
+
+	return c.Render(http.StatusOK, "task_detail.html", data)
 }

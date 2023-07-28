@@ -1,0 +1,11 @@
+{{define "title"}}Task details{{end}}
+{{define "main"}}
+    <h1>Task: {{ .task.Title }}</h1>
+    <div>
+        <a href='{{ reverse "tasksList" }}'>Task list</a>
+    </div>
+
+    <div>
+        Description: {{ .task.Description }}
+    </div>
+{{end}}

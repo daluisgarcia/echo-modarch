@@ -1,0 +1,20 @@
+{{define "title"}}TODOs{{end}}
+{{define "main"}}
+    <h1>{{ .user.Name }} tasks</h1>
+    <div>
+        <a href='{{ reverse "newTaskForm" }}'>Create Task</a>
+    </div>
+
+    <ul>
+        {{range .Tasks}}
+        <li>
+            {{if .Done}}
+                -{{.Title}}-
+            {{else}}
+                {{.Title}}
+            {{end}}
+             - <a href='{{ reverse "taskDetails" .Id }}'>Details</a>
+        </li>
+        {{end}}
+    </ul>
+{{end}}

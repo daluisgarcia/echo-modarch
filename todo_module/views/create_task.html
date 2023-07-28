@@ -1,0 +1,9 @@
+{{define "title"}}Create Task{{end}}
+{{define "main"}}
+    <h1>CREATE TASK</h1>
+    <form method="post">
+        <input type="text" name="title" placeholder="Task title" required>
+        <textarea name="description" placeholder="Task description" required></textarea>
+        <input type="submit" value="Create task">
+    </form>
+{{end}}

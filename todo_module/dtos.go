@@ -1,7 +1,12 @@
 package todo_module
 
+type CreateTaskData struct {
+	Title       string `form:"title"`
+	Description string `form:"description"`
+}
+
 type TodoPageDTO struct {
-	Id        string
 	PageTitle string
-	Todos     []Todo
+	Tasks     []*Task
+	Error     string
 }
