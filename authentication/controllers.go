@@ -65,8 +65,10 @@ func loginUser(c echo.Context) error {
 	}
 
 	userCookie := &app.UserCookieData{
-		Id:    userFromDb.Id,
-		Email: userFromDb.Email,
+		Id:              userFromDb.Id,
+		Name:            userFromDb.Name,
+		Email:           userFromDb.Email,
+		IsAuthenticated: true,
 	}
 
 	if err = app.SetSessionCookie(c, userCookie); err != nil {

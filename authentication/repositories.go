@@ -20,7 +20,7 @@ func NewUserRepository() *UserRepository {
 }
 
 func (this *UserRepository) FindUserByEmail(ctx context.Context, email string) (*User, error) {
-	rows, err := this.GetDB().QueryContext(ctx, "SELECT id, email, password FROM users WHERE email = $1", email)
+	rows, err := this.GetDB().QueryContext(ctx, "SELECT id, name, email, password FROM users WHERE email = $1", email)
 
 	defer func() { // Alows to validate the error after the function returns
 		err := rows.Close()
@@ -36,7 +36,7 @@ func (this *UserRepository) FindUserByEmail(ctx context.Context, email string) (
 
 	var user = User{}
 	for rows.Next() {
-		if err := rows.Scan(&user.Id, &user.Email, &user.Password); err == nil {
+		if err := rows.Scan(&user.Id, &user.Name, &user.Email, &user.Password); err == nil {
 			return &user, err
 		}
 	}

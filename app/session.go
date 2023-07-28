@@ -12,8 +12,10 @@ import (
 )
 
 type UserCookieData struct {
-	Id    string `json:"id"`
-	Email string `json:"email"`
+	Id              string `json:"id"`
+	Name            string `json:"name"`
+	Email           string `json:"email"`
+	IsAuthenticated bool   `json:"is_authenticated"`
 }
 
 // SetSessionCookie sets a session cookie with the user data

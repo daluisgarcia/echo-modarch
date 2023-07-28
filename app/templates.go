@@ -3,6 +3,7 @@
 package app
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
@@ -20,8 +21,28 @@ type TemplateRenderer struct {
 func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 
 	if temp, ok := tr.templates[name]; ok {
-		// Renders the base template with the blocks defined in the template gotten by name
-		return temp.ExecuteTemplate(w, "base", data)
+		dataBytes, err := json.Marshal(data)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		var v interface{}
+		if err := json.Unmarshal(dataBytes, &v); err != nil {
+			log.Fatal(err)
+		}
+
+		if viewContext, isMap := v.(map[string]interface{}); isMap {
+			var err error
+			// If the context has a user, it will be passed to the template
+			if viewContext["user"], err = GetUserFromCookie(c); err != nil {
+				viewContext["user"] = &UserCookieData{}
+			}
+
+			// Renders the base template with the blocks defined in the template gotten by name
+			return temp.ExecuteTemplate(w, "base", viewContext)
+		}
+
+		return fmt.Errorf("ERROR RENDERING TEMPLATE: Context cannot be parsed to map[string]interface{}")
 	}
 
 	err := fmt.Errorf("ERROR RENDERING TEMPLATE: Template %v not found", name)
@@ -47,7 +68,6 @@ func (tr *TemplateRenderer) AddTemplate(path string) {
 	temp.Funcs(
 		template.FuncMap{
 			"reverse": echoApp.Reverse,
-			"user":    GetUserFromCookie,
 		},
 	)
 
