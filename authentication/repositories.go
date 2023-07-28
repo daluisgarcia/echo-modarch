@@ -22,6 +22,10 @@ func NewUserRepository() *UserRepository {
 func (this *UserRepository) FindUserByEmail(ctx context.Context, email string) (*User, error) {
 	rows, err := this.GetDB().QueryContext(ctx, "SELECT id, name, email, password FROM users WHERE email = $1", email)
 
+	if err != nil {
+		return nil, err
+	}
+
 	defer func() { // Alows to validate the error after the function returns
 		err := rows.Close()
 
@@ -29,10 +33,6 @@ func (this *UserRepository) FindUserByEmail(ctx context.Context, email string) (
 			log.Fatal(err)
 		}
 	}()
-
-	if err != nil {
-		return nil, err
-	}
 
 	var user = User{}
 	for rows.Next() {
