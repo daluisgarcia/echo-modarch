@@ -42,7 +42,10 @@ func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c
 			return temp.ExecuteTemplate(w, "base", viewContext)
 		}
 
-		return fmt.Errorf("ERROR RENDERING TEMPLATE: Context cannot be parsed to map[string]interface{}")
+		err = fmt.Errorf("ERROR RENDERING TEMPLATE: Context cannot be parsed to map[string]interface{}")
+		log.Printf("%v\n", err)
+
+		return err
 	}
 
 	err := fmt.Errorf("ERROR RENDERING TEMPLATE: Template %v not found", name)
